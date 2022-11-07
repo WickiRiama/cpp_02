@@ -6,15 +6,17 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:36:04 by mriant            #+#    #+#             */
-/*   Updated: 2022/11/04 18:14:31 by mriant           ###   ########.fr       */
+/*   Updated: 2022/11/07 17:55:57 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <cmath>
 
-#include "Fixed.hpp"
+#include "Fixed.h"
 
-const int _fractionBits = 8;
+const int Fixed::_fractionBits = 8;
+const int Fixed::_maxN = pow_2(sizeof(int) * 8 - _fractionBits - 1);
 
 //==============================================================================
 //  Constructors Destructor
@@ -33,10 +35,18 @@ Fixed::Fixed(Fixed const &src)
 
 Fixed::Fixed(int const nb)
 {
+	std::cout << "Int constructor called" << std::endl;
+	if (nb > _maxN - 1 || nb < _maxN * -1)
+		std::cout << "Warning: Overflow with value " << nb << std::endl;
+	this->_value = nb << _fractionBits;
 }
 
 Fixed::Fixed(float const nb)
 {
+	std::cout << "Float constructor called" << std::endl;
+	if (nb > _maxN - 1 || nb < _maxN * -1)
+		std::cerr << "Warning: Overflow with value " << nb << std::endl;
+	this->_value = roundf(nb * pow_2(_fractionBits));
 }
 
 Fixed::~Fixed()
@@ -55,8 +65,10 @@ Fixed &Fixed::operator=(Fixed const &rhs)
 	return (*this);
 }
 
-std::ostream &operator<<(std::ostream &o, Fixed const rhs){
-	
+std::ostream &operator<<(std::ostream &o, Fixed const &rhs)
+{
+	o << rhs.toFloat();
+	return o;
 }
 
 //==============================================================================
@@ -65,7 +77,6 @@ std::ostream &operator<<(std::ostream &o, Fixed const rhs){
 
 int Fixed::getRawBits(void) const
 {
-	std::cout << "getRawBits member function called" << std::endl;
 	return (_value);
 }
 
@@ -74,10 +85,12 @@ void Fixed::setRawBits(int const raw)
 	this->_value = raw;
 }
 
-float Fixed::toFloat(void)
+float Fixed::toFloat(void) const
 {
+	return (float)this->getRawBits() / pow_2(_fractionBits);
 }
 
-int Fixed::toInt(void)
+int Fixed::toInt(void) const
 {
+	return this->_value >> _fractionBits;
 }
