@@ -6,7 +6,7 @@
 #    By: mriant <mriant@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 16:22:44 by mriant            #+#    #+#              #
-#    Updated: 2022/11/04 16:33:37 by mriant           ###   ########.fr        #
+#    Updated: 2022/11/08 16:19:57 by mriant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,17 +19,17 @@ SRCS = ${addprefix srcs/, \
 OBJS = ${SRCS:srcs/%.cpp=build/%.o}
 DEPS = ${SRCS:srcs/%.cpp=build/%.d}
 
-CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 IFLAGS = -MMD -I./includes
 LFLAGS =
 
 ${NAME}: ${OBJS}
-	${CC} ${CFLAGS} ${OBJS} -o ${NAME} ${LFLAGS}
+	${CXX} ${CXXFLAGS} ${OBJS} -o ${NAME} ${LFLAGS}
 
 build/%.o: srcs/%.cpp
 	mkdir -p build
-	${CC} ${CFLAGS} -c $< -o $@ ${IFLAGS}
+	${CXX} ${CXXFLAGS} -c $< -o $@ ${IFLAGS}
 
 .PHONY: all
 all: ${NAME}
@@ -39,7 +39,7 @@ clean:
 	rm -rf build
 
 .PHONY: fclean
-clean: clean
+fclean: clean
 
 .PHONY: re
 re: fclean
