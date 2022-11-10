@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:00:27 by mriant            #+#    #+#             */
-/*   Updated: 2022/11/10 15:15:37 by mriant           ###   ########.fr       */
+/*   Updated: 2022/11/10 17:13:05 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ Fixed triangle_area(Point const a, Point const b, Point const c) {
 }
 
 bool bsp(Point const a, Point const b, Point const c, Point const point) {
-	(void)point;
-
 	Fixed area_abc = triangle_area(a, b, c);
 	Fixed area_abp = triangle_area(a, b, point);
 	Fixed area_bcp = triangle_area(b, c, point);
