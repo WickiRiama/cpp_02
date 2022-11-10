@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:00:27 by mriant            #+#    #+#             */
-/*   Updated: 2022/11/09 17:47:56 by mriant           ###   ########.fr       */
+/*   Updated: 2022/11/10 15:15:37 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,27 @@ int pow_2(unsigned int n)
 	return result;
 }
 
+Fixed triangle_area(Point const a, Point const b, Point const c) {
+	Fixed area = (a.getX() * (b.getY() - c.getY())
+			+ b.getX() * (c.getY() - a.getY())
+			+ c.getX() * (a.getY() - b.getY())) / 2;
+	if (area < 0) {
+		area = area * -1;
+	}
+	return area;
+}
+
 bool bsp(Point const a, Point const b, Point const c, Point const point) {
-	(void)a;
-	(void)b;
-	(void)c;
 	(void)point;
-	return true;
+
+	Fixed area_abc = triangle_area(a, b, c);
+	Fixed area_abp = triangle_area(a, b, point);
+	Fixed area_bcp = triangle_area(b, c, point);
+	Fixed area_acp = triangle_area(a, c, point);
+
+	if (area_abc == 0 || area_abp == 0 || area_acp == 0 || area_bcp == 0)
+		return false;
+	else if (area_abc == area_abp + area_acp + area_bcp)
+		return true;
+	return false;
 }
