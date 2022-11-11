@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:36:04 by mriant            #+#    #+#             */
-/*   Updated: 2022/11/09 15:53:43 by mriant           ###   ########.fr       */
+/*   Updated: 2022/11/11 11:47:09 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ bool Fixed::operator!=(Fixed const &rhs)
 	return false;
 }
 
-Fixed Fixed::operator++(void)
+Fixed &Fixed::operator++(void)
 {
 	this->_value += 1;
 	return *this;

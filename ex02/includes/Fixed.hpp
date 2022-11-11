@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:35:01 by mriant            #+#    #+#             */
-/*   Updated: 2022/11/09 15:53:53 by mriant           ###   ########.fr       */
+/*   Updated: 2022/11/11 11:47:25 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ public:
 	bool operator<=(Fixed const &rhs);
 	bool operator==(Fixed const &rhs);
 	bool operator!=(Fixed const &rhs);
-	Fixed operator++(void);
+	Fixed &operator++(void);
 	Fixed operator++(int);
 	Fixed &operator--(void);
 	Fixed operator--(int);
